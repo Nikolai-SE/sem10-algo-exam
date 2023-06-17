@@ -2,27 +2,38 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
+\usepackage{amsmath}
 \usepackage{fullpage}
+
+\usepackage{tikz}
+\usetikzlibrary{decorations}
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{decorations.pathreplacing}
+\usetikzlibrary{decorations.shapes}
 
 \begin{document}
     \renewcommand{\O}{\mathcal{O}}
+    \newcommand{\floor}[1]{\left \lfloor #1 \right \rfloor}
+    \newcommand{\parens}[1]{\left( #1 \right)}
+    \newcommand{\brackets}[1]{\left[ #1 \right]}
+    \newcommand{\braces}[1]{\left\{ #1 \right\}}
 
-    \input{part01}
-    \input{part02}
-    \input{part03}
-    \input{part04}
-    \input{part05}
-    \input{part06}
-    \input{part07}
-    \input{part08}
-    \input{part09}
-    \input{part10}
-    \input{part11}
-    \input{part12}
-    \input{part13}
-    \input{part14}
-    \input{part15}
-    \input{part16}
-    \input{part17}
-    \input{part18}
+    \include{part01}
+    \include{part02}
+    \include{part03}
+    \include{part04}
+    \include{part05}
+    \include{part06}
+    \include{part07}
+    \include{part08}
+    \include{part09}
+    \include{part10}
+    \include{part11}
+    \include{part12}
+    \include{part13}
+    \include{part14}
+    \include{part15}
+    \include{part16}
+    \include{part17}
+    \include{part18}
 \end{document}
