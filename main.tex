@@ -2,10 +2,14 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T2A]{fontenc}
-\usepackage{amsmath}
+\usepackage[russian]{babel}
 \usepackage{fullpage}
 
+\usepackage{amsmath}
+\usepackage{amsthm}
+
 \usepackage{tikz}
+\usetikzlibrary{shapes.geometric}
 \usetikzlibrary{decorations}
 \usetikzlibrary{decorations.pathmorphing}
 \usetikzlibrary{decorations.pathreplacing}
@@ -17,6 +21,8 @@
     \newcommand{\parens}[1]{\left( #1 \right)}
     \newcommand{\brackets}[1]{\left[ #1 \right]}
     \newcommand{\braces}[1]{\left\{ #1 \right\}}
+
+    \newtheorem{statement}{Утверждение}
 
     \include{part01}
     \include{part02}
