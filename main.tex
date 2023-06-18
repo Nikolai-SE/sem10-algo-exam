@@ -9,13 +9,16 @@
 \usepackage{amsthm}
 
 \usepackage{tikz}
-\usetikzlibrary{shapes.geometric}
 \usetikzlibrary{decorations}
 \usetikzlibrary{decorations.pathmorphing}
 \usetikzlibrary{decorations.pathreplacing}
 \usetikzlibrary{decorations.shapes}
+\usetikzlibrary{graphs}
+\usetikzlibrary{shapes.geometric}
 
 \begin{document}
+    \tableofcontents
+
     \renewcommand{\O}{\mathcal{O}}
     \newcommand{\floor}[1]{\left \lfloor #1 \right \rfloor}
     \newcommand{\parens}[1]{\left( #1 \right)}
@@ -23,6 +26,8 @@
     \newcommand{\braces}[1]{\left\{ #1 \right\}}
 
     \newtheorem{statement}{Утверждение}
+    \newtheorem{definition}{Определение}
+    \newtheorem{theorem}{Теорема}
 
     \include{part01}
     \include{part02}
