@@ -7,7 +7,7 @@ Treap: верхняя оценка $\O(\log n)$ на мат. ожидание
 глубины дерева.
 Использование неявного ключа, rope.
 
-\subsection{Решение}
+\subsection{Декартово дерево}
 Декартово дерево --- двоичное дерево поиска по ключу
 и одновременно куча по приоритету.
 
@@ -128,7 +128,7 @@ Treap: верхняя оценка $\O(\log n)$ на мат. ожидание
 \begin{minipage}{\textwidth}
     \begin{algorithmic}
         \Function{merge}{$T_1, T_2$}
-            \Comment{$\forall x \in T_1.~\forall y \in T_2.~x \leq y$}
+            \Comment{$\forall x \in T_1.~\forall y \in T_2.~x \le y$}
             \If{$T_1 = \None$}
                 \Return $T_2$
             \EndIf
