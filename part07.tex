@@ -3,3 +3,206 @@ Cложение, умножение, деление длинных чисел.
 Модульная арифметика: сложение, умножение,
 возведение в степень, алгоритм Евклида,
 расширенный алгоритм Евклида, деление.
+
+\subsection{Алгоритмы арифметики}
+Числа представляются как двоичные строки.
+$n$ --- длина числа в битах.
+
+Сложение --- очевидный алгоритм за $\O(n)$.
+
+В процессорах умножение обычно
+реализуется следующим алгоритмом в столбик
+за $\O(n^2)$:
+\begin{minted}{rust}
+fn mul(mut a: Int, mut b: Int) -> Int {
+    let mut r: Int = 0;
+    for _ in 0..Int::BITS {
+        if b & 1 == 1 {
+            r += a;
+        }
+        a <<= 1;
+        b >>= 1;
+    }
+    r
+}
+\end{minted}
+
+Деление и получение остатка реализуется
+алгоритмом в столбик
+за $\O(n^2)$
+(точнее, за $\O(n \cdot (n - m))$,
+где $m$ --- старший бит $b$, считая с 0, $m < n$):
+\begin{minted}{rust}
+fn div_rem(mut a: Int, mut b: Int) -> (Int, Int) {
+    let mut r: Int = 0;
+    let mut maxbit = 0;
+    for i in 0..Int::BITS {
+        if b & (1 << i) != 0 {
+            maxbit = i;
+        }
+    }
+    for i in (0..Int::BITS - maxbit).rev() {
+        let b = b << i;
+        if a >= b {
+            r |= 1 << i;
+            a -= b;
+        }
+    }
+    (r, a)
+}
+\end{minted}
+
+Есть алгоритм Карацубы для умножения
+за $\O(n^{\log_2 3})$.
+Он основан на следующем:
+\begin{gather*}
+    (ax + b) \cdot (cx + d)
+    = ac x^2 + (ad + bc) \cdot x + bd \\
+    (a + b) \cdot (c + d)
+    = ac + ad + bc + bd \\
+    ad + bc = (a + b) \cdot (c + d) - ac - bd
+\end{gather*}
+
+Поэтому при дроблении задачи в 2 раза
+достаточно провести 3 умножения частей
+и $\O(1)$ сложений, а не 4 умножения,
+т.е.
+\begin{gather*}
+    T(n) = 3 \cdot T(n/2) + \O(n) \\
+    T(n) \in \O(n^{\log_2 3})
+\end{gather*}
+
+Существует алгоритм умножения,
+основанный на быстром преобразовании Фурье,
+за $\O(n \log n)$.
+
+Базовый алгоритм Евклида:
+\begin{minted}{rust}
+fn gcd(a: Int, b: Int) -> Int {
+    if a < b {
+        gcd(b, a)
+    } else if b == 0 {
+        a
+    } else {
+        gcd(b, a - b)
+    }
+}
+\end{minted}
+
+Обычно пишут как
+\begin{minted}{rust}
+fn gcd(a: Int, b: Int) -> Int {
+    if b == 0 {
+        a
+    } else {
+        gcd(b, a % b)
+    }
+}
+\end{minted}
+
+\begin{theorem}
+    Алгоритм Евклида находит НОД.
+\end{theorem}
+\begin{proof}
+    Пусть $a = bq + r$.
+    Пусть $a \equiv 0 \pmod c$
+    и $b \equiv 0 \pmod c$.
+    Тогда $r \equiv 0 \pmod c$,
+    т.к. $r = a - bq$.
+    Тогда множества общих делителей
+    у $(a, b)$ и у $(b, r)$ совпадают.
+\end{proof}
+
+\begin{theorem}[Теорема Безу]
+    Всегда существуют целые $x$ и $y$
+    такие, что $ax + by = \gcd(a, b)$.
+\end{theorem}
+\begin{proof}
+    Расширенный алгоритм Евклида.
+    \begin{minted}{rust}
+    fn gcd_ext(a: Int, b: Int) -> (Int, Int, Int) {
+        if a < b {
+            let (g, x, y) = gcd_ext(b, a);
+            (g, y, x)
+        } else if b == 0 {
+            (a, 1, 0)
+        } else {
+            let (g, x, y) = gcd_ext(b, a - b);
+            (g, y, x - y)
+        }
+    }
+    \end{minted}
+\end{proof}
+
+Расширенный алгоритм Евклида можно записать через модуль:
+\begin{minted}{rust}
+fn gcd_ext_mod(a: Int, b: Int) -> (Int, Int, Int) {
+    if b == 0 {
+        (a, 1, 0)
+    } else {
+        let q = a / b;
+        let (g, x, y) = gcd_ext_mod(b, a % b);
+        (g, y, x - q * y)
+    }
+}
+\end{minted}
+
+\begin{theorem}
+    $|x| \le b$ и $|y| \le a$
+\end{theorem}
+\begin{proof}
+    Если $a \equiv 0 \pmod b$,
+    то рекурсивный вызов вернёт $(b, 1, 0)$.
+
+    По индукции предположим, что для рекурсивного вызова выполняется.
+    Тогда
+    \begin{gather*}
+        q = \floor{\frac{a}{b}} \\
+        r = a \Mod b \\
+        \gcd(a, b) = x' \cdot b + y' \cdot r \\
+        |x'| \le r \\
+        |y'| \le b \\
+        x = y' \\
+        y = x' - qy' \\
+        |x| = |y'| \le b \\
+        |y| \le |x'| + |qy'| \le r + qb = a
+    \end{gather*}
+\end{proof}
+
+Возведение в степень --- алгоритм за $\O(M \log p)$,
+где $M$ --- сложность умножения, а $p$ --- степень.
+
+\subsection{Модульная арифметика}
+Сложение, умножение, степень --- очевидно.
+
+Деление --- через расширенный алгоритм Евклида
+и поиск обратного:
+\begin{gather*}
+    a / b = a \cdot b^{-1} \\
+    b \cdot b^{-1} \equiv 1 \pmod m \\
+\end{gather*}
+
+Для существования такого $q$ нужно,
+чтобы $\gcd(b, m) = 1$, т.к. иначе
+$1 \ne \gcd(b, m) \mid bq$.
+
+Воспользуемся расширенным алгоритмом Евклида и найдём $x$ и $y$:
+\[ bx + my \equiv bx \equiv 1 \pmod m \]
+это $x$ и будет искомым $q$.
+Нужно модифицировать $\gcd$ для использования модульного
+сложения и умножения:
+\begin{minted}{rust}
+fn gcd_ext_mod(a: Int, b: Int, m: Int) -> (Int, Int, Int) {
+    if a < b {
+        let (g, x, y) = gcd_ext_mod(b, a, m);
+        (g, y, x)
+    } else if b == 0 {
+        (a, 1, 0)
+    } else {
+        let (g, x, y) = gcd_ext_mod(b, (a + m - b) % m, m);
+        (g, y, (x + m - y) % m)
+    }
+}
+\end{minted}
+
+Если $m$ --- простое, то обратный элемент есть всегда.

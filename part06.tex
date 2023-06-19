@@ -83,14 +83,14 @@ $k_1$ и $k_2$
     \begin{gather*}
         ak_1 + b \equiv ak_2 + b \pmod{p} \\
         a(k_1 - k_2) \equiv 0 \pmod{p} \\
-        a \ne 0 \Rightarrow k_1 = k_2 \\
+        a \ne 0 \Rightarrow k_1 = k_2
     \end{gather*}
 
     По $t_1, t_2, k_1, k_2$ можно однозначно восстановить $a, b$:
     \begin{gather*}
         t_1 - t_2 \equiv a(k_1 - k_2) \pmod{p} \\
         a \equiv (t_1 - t_2) \cdot (k_1 - k_2)^{-1} \pmod{p} \\
-        b \equiv t_1 - a k_1 \pmod{p} \\
+        b \equiv t_1 - a k_1 \pmod{p}
     \end{gather*}
     (кольцо по модулю $p$ --- поле, в нём есть деление).
 
@@ -135,13 +135,13 @@ $k_1$ и $k_2$
 \begin{proof}
     Мат. ожидание количества коллизий
     \[
-        \E X \leq \binom{n}{2} \cdot \frac{1}{m}
+        \E X \le \binom{n}{2} \cdot \frac{1}{m}
         = \frac{n(n - 1)}{2} \cdot \frac{1}{n^2} < \frac{1}{2}
     \]
 
     По неравенству Маркова
     \[
-        \Pr \brackets{X \geq 1} \leq \frac{\E X}{1}
+        \Pr \brackets{X \geq 1} \le \frac{\E X}{1}
         < \frac{1}{2}
     \]
 \end{proof}
@@ -150,7 +150,7 @@ $k_1$ и $k_2$
     \label{thm:06-2}
     При $m = n$
     \[
-        \Pr \brackets{\sum_{i=0}^{n-1} n_i^2 \geq 4n} \leq \frac{1}{2}
+        \Pr \brackets{\sum_{i=0}^{n-1} n_i^2 \geq 4n} \le \frac{1}{2}
     \]
 \end{theorem}
 \begin{proof}
@@ -163,16 +163,16 @@ $k_1$ и $k_2$
         n_i^2 = n_i + 2 \binom{n_i}{2} \\
         \E \brackets{\sum_{i=0}^{n-1} n_i^2}
         = \E \brackets{\sum_{i=0}^{n-1} n_i + 2 \sum_{i=0}^{n-1} \binom{n_i}{2}}
-        = n + 2 \E \brackets{\sum_{i=0}^{n-1} \binom{n_i}{2}} \leq \\
+        = n + 2 \E \brackets{\sum_{i=0}^{n-1} \binom{n_i}{2}} \le \\
         \brackets{\text{вероятность коллизии не превосходит $1/m = 1/n$}} \\
-        \leq n + 2 \binom{n}{2} \cdot \frac{1}{n}
+        \le n + 2 \binom{n}{2} \cdot \frac{1}{n}
         = n + 2 \cdot \frac{n (n - 1)}{2} \cdot \frac{1}{n}
         = n + n - 1 < 2n
     \end{gather*}
 
     \[
         \Pr \brackets{\sum_{i=0}^{n-1} n_i^2 \geq 4n}
-        \leq \frac{\E \brackets{\sum_{i=0}^{n-1} n_i^2}}{4n}
+        \le \frac{\E \brackets{\sum_{i=0}^{n-1} n_i^2}}{4n}
         < \frac{2n}{4n} = \frac{1}{2}
     \]
 \end{proof}
