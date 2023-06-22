@@ -15,15 +15,11 @@
 должен быть равен исходящему,
 нужно максимизировать поток в сети,
 т.е.выходной поток из $s$ (он же входной поток в $t$):
-\[
-    \left\{
-    \begin{aligned}
-        & \sum_{e = s \to u} f(e) - \sum_{e = u \to s} f(e) \to \max \\
-        & \forall v \in V \setminus \{s; t\}.~\sum_{e = u \to v} f(e) = \sum_{e = v \to u} f(e) \\
-        & \forall e \in E.~0 \le f(e) \le c(e) \\
-    \end{aligned}
-    \right.
-\]
+\begin{eqnsystem}
+    & \sum_{e = s \to u} f(e) - \sum_{e = u \to s} f(e) \to \max \\
+    & \forall v \in V \setminus \{s; t\}.~\sum_{e = u \to v} f(e) = \sum_{e = v \to u} f(e) \\
+    & \forall e \in E.~0 \le f(e) \le c(e) \\
+\end{eqnsystem}
 
 Поток между множествами вершин
 --- сумма потоков по рёбрам,
