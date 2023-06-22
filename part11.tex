@@ -15,7 +15,7 @@ ILP: пример для максимального паросочетания
         \begin{aligned}
             & \sum_{j=1}^{|E|} x_j \to \max \\
             & \forall i \le |V|.~\sum_{j=1}^{|E|} a_{ij} x_j \le 1 \\
-            & \forall j \le |E|.~x_j \le 1 \\
+            % & \forall j \le |E|.~x_j \le 1 \\
             & \forall j \le |E|.~x_j \ge 0 \\
         \end{aligned}
     \right.
@@ -31,7 +31,7 @@ ILP: пример для максимального паросочетания
         \begin{aligned}
             & \sum_{i=1}^{|V|} y_i \to \min \\
             & \forall j \le |E|.~\sum_{i=1}^{|V|} a_{ij} y_i \ge 1 \\
-            & \forall i \le |V|.~y_i \le 1 \\
+            % & \forall i \le |V|.~y_i \le 1 \\
             & \forall i \le |V|.~y_i \ge 0 \\
         \end{aligned}
     \right.

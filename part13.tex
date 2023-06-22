@@ -3,3 +3,94 @@
 Алгоритм Рабина-Карпа.
 $z$-функция, префикс-функция,
 алгоритм Кнута-Морриса-Пратта.
+
+\subsection{Конспект}
+Наивный алгоритм --- очевидно.
+
+Алгоритм Рабина-Карпа: полиномиальное хеширование.
+$\O(n + m)$.
+
+$z$-функция:
+$z_i$ --- максимальная длина префикса строки,
+который совпадает с префиксом её $i$-го суффикса.
+префикс- или $\pi$-функция:
+$\pi_i$ --- максимальная длина префикса $(i - 1)$-го префикса строки,
+который совпадает с суффиксом её $i$-го префикса.
+$z$- и префикс-функцию можно посчитать за $\O(n)$:
+
+\bigskip
+\noindent
+\begin{minipage}{\textwidth}
+\begin{minted}{rust}
+pub fn calc_zfun_inplace(s: &[impl Eq], z: &mut [usize]) {
+    let n = s.len();
+    assert_eq!(n, z.len());
+    if n == 0 {
+        return;
+    }
+    z[0] = n;
+    if n == 1 {
+        return;
+    }
+    // Поддерживаем самый правый совпадающий с префиксом диапазон,
+    // может быть нулевой длины
+    let mut l = 1;
+    let mut r = 1;
+    z[1] = r - l;
+    for i in 1..n {
+        let mut k = 0;
+        if i < r {
+            // s[i..r] = s[i - l..r - l]
+            k = z[i - l].min(r - i);
+        }
+        while i + k < n && s[k] == s[i + k] {
+            k += 1;
+        }
+        z[i] = k;
+        if i + k > r {
+            l = i;
+            r = i + k;
+        }
+    }
+}
+\end{minted}
+\end{minipage}
+
+Пояснение:
+\begin{center}
+    \begin{tikzpicture}
+
+    \end{tikzpicture}
+\end{center}
+
+\bigskip
+\noindent
+\begin{minipage}{\textwidth}
+\begin{minted}{rust}
+pub fn calc_pfun_inplace(s: &[impl Eq], p: &mut [usize]) {
+    let n = s.len();
+    assert_eq!(n, p.len());
+    if n == 0 {
+        return;
+    }
+    p[0] = 0;
+    for i in 1..n {
+        let mut k = p[i - 1];
+        while k != 0 && s[i] != s[k] {
+            k = p[k - 1];
+        }
+        if s[i] == s[k] {
+            k += 1;
+        }
+        p[i] = k;
+    }
+}
+\end{minted}
+\end{minipage}
+
+Кнута-Морриса-Пратта:
+для поиска паттерна в строке
+запишем паттерн как префикс строки
+через специальный разделитель
+и будем искать по префикс-функции.
+$\O(n + m)$, очевидно.
