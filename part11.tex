@@ -70,6 +70,30 @@ ILP: пример для максимального паросочетания
 \begin{proof}
     Рассмотрим вершину $(x_1, \ldots, x_n)$.
     Её система уравнений:
-    \begin{eqnsystem}
-    \end{eqnsystem}
+    \begin{align*}
+        &
+        \begin{system}
+            a_{11} x_1 + \ldots + a_{1n} x_n & = b_1 \\
+            & \vdots \\
+            a_{n1} x_1 + \ldots + a_{nn} x_n & = b_1 \\
+        \end{system}
+        &&
+        A X = B
+    \end{align*}
+
+    Эту систему можно решить методом Крамера:
+    \[
+        x_i = \frac{1}{\det A} \cdot \det
+        \begin{bmatrix}
+            a_{11} & \cdots & a_{1,i - 1} & b_1 & a_{1,i + 1} & \cdots & a_{1n} \\
+            \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+            a_{n1} & \cdots & a_{n,i - 1} & b_n & a_{n,i + 1} & \cdots & a_{1n} \\
+        \end{bmatrix}
+    \]
+
+    Поскольку $b_j$ --- целые, и каждый определитель
+    квадратной подматрицы это либо $0$, либо $\pm 1$,
+    то определитель правой матрицы целый,
+    а определитель матрицы в знаменателе --- $\pm 1$,
+    поэтому $x_i \in \Z$.
 \end{proof}
