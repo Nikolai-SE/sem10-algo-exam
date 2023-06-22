@@ -10,32 +10,66 @@ ILP: пример для максимального паросочетания
 каждому ребру $e_j$ назначим $x_j$
 --- берём или нет это ребро,
 и задача выглядит так:
-\[
-    \left\{
-        \begin{aligned}
-            & \sum_{j=1}^{|E|} x_j \to \max \\
-            & \forall i \le |V|.~\sum_{j=1}^{|E|} a_{ij} x_j \le 1 \\
-            % & \forall j \le |E|.~x_j \le 1 \\
-            & \forall j \le |E|.~x_j \ge 0 \\
-        \end{aligned}
-    \right.
-\]
+\begin{eqnsystem}
+    & \sum_{j=1}^{|E|} x_j \to \max \\
+    & \forall i \le |V|.~\sum_{j=1}^{|E|} a_{ij} x_j \le 1 \\
+    % & \forall j \le |E|.~x_j \le 1 \\
+    & \forall j \le |E|.~x_j \ge 0 \\
+\end{eqnsystem}
 где $a_{ij}$ --- инцидентность вершины $v_i$ ребру $e_j$.
 
 Минимальное вершинное покрытие:
 каждой вершине $v_i$ назначим $y_i$
 --- берём или нет эту вершину.
 Задача выглядит так:
-\[
-    \left\{
-        \begin{aligned}
-            & \sum_{i=1}^{|V|} y_i \to \min \\
-            & \forall j \le |E|.~\sum_{i=1}^{|V|} a_{ij} y_i \ge 1 \\
-            % & \forall i \le |V|.~y_i \le 1 \\
-            & \forall i \le |V|.~y_i \ge 0 \\
-        \end{aligned}
-    \right.
-\]
+\begin{eqnsystem}
+    & \sum_{i=1}^{|V|} y_i \to \min \\
+    & \forall j \le |E|.~\sum_{i=1}^{|V|} a_{ij} y_i \ge 1 \\
+    % & \forall i \le |V|.~y_i \le 1 \\
+    & \forall i \le |V|.~y_i \ge 0 \\
+\end{eqnsystem}
 где $a_{ij}$ --- инцидентность вершины $v_i$ ребру $e_j$.
 
-% TODO
+\begin{theorem}[теорема Кёнига]
+    Максимальное паросочетание не больше минимального вершинного покрытия
+\end{theorem}
+\begin{proof}
+    См. задачи линейного программирования выше,
+    можно заметить, что если
+    $A$ --- матрица инцидентности
+    (т.е. $a_{ij}$ --- инцидентность $v_i$ и $e_j$),
+    то задачи выглядят как
+    \begin{align*}
+        &
+        \begin{system}
+            & 1_{|E|}^T \cdot X \to \max \\
+            & A \cdot X \le 1_{|V|} \\
+            & X \ge 0 \\
+        \end{system}
+        &&
+        \begin{system}
+            & 1_{|V|}^T \cdot Y \to \min \\
+            & A^T \cdot Y \ge 1_{|E|} \\
+            & Y \ge 0 \\
+        \end{system}
+    \end{align*}
+    Т.е. задачи двойственны друг другу,
+    следовательно,
+    оптимум минимального вершинного покрытия
+    равен оптимуму максимального паросочетания.
+\end{proof}
+
+\subsection{Унимодулярность}
+Тотальная унимодулярность:
+определитель каждой квадратной подматрицы
+(в т.ч. с пробелами) --- $\pm 1$ или $0$.
+\begin{theorem}
+    Все вершины многогранника с тотально унимодулярной
+    матрицей целочисленны.
+\end{theorem}
+\begin{proof}
+    Рассмотрим вершину $(x_1, \ldots, x_n)$.
+    Её система уравнений:
+    \begin{eqnsystem}
+    \end{eqnsystem}
+\end{proof}

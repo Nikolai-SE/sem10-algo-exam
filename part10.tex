@@ -15,21 +15,17 @@
 
 \begin{align*}
     &
-    \left\{
-    \begin{aligned}
+    \begin{system}
         & \sum_{i=1}^n c_i x_i \to \max \\
         & \forall j \in \{1, \ldots, m\}.~\sum_{i=1}^n a_{ji} x_i \le b_j \\
         & \forall i \in \{1, \ldots, n\}.~x_i \ge 0 \\
-    \end{aligned}
-    \right.
+    \end{system}
     &&
-    \left\{
-    \begin{aligned}
+    \begin{system}
         C^T \cdot X & \to \max \\
         A \cdot X & \le B \\
         X & \ge 0 \\
-    \end{aligned}
-    \right.
+    \end{system}
 \end{align*}
 
 Пример --- максимизация прибыли,
@@ -47,14 +43,10 @@
     \item Ограничения неравенством или равенством:
     для $\sum_{i=1}^n a_i x_i \le b$
     вводим $s$ и пишем
-    \[
-        \left\{
-        \begin{aligned}
-            & \sum_{i=1}^n a_i x_i + s = b \\
-            & s \ge 0 \\
-        \end{aligned}
-        \right.
-    \]
+    \begin{eqnsystem}
+        & \sum_{i=1}^n a_i x_i + s = b \\
+        & s \ge 0 \\
+    \end{eqnsystem}
 
     Обратно --- для $A = B$ пишем $A \le B$ и $A \ge B$ ($-A \le -B$);
 
@@ -69,17 +61,13 @@
 
 \subsection{Двойственная задача}
 \paragraph{Пример}
-\[
-    \left\{
-    \begin{aligned}
-        x_1 + 6 x_2 & \to \max \\
-        x_1 & \le 200 \\
-        x_2 & \le 300 \\
-        x_1 + x_2 & \le 400 \\
-        x_1, x_2 & \ge 0 \\
-    \end{aligned}
-    \right.
-\]
+\begin{eqnsystem}
+    x_1 + 6 x_2 & \to \max \\
+    x_1 & \le 200 \\
+    x_2 & \le 300 \\
+    x_1 + x_2 & \le 400 \\
+    x_1, x_2 & \ge 0 \\
+\end{eqnsystem}
 
 Решение этой задачи:
 $x_1 = 100, x_2 = 300$,
@@ -108,29 +96,21 @@ $y_1 \cdot x_1 + y_2 \cdot x_2 + y_3 \cdot (x_1 + x_2)$,
     x_1 + 6 x_2 \le 200 y_1 + 300 y_2 + 400 y_3
 \]
 Для этого требуются ограничения
-\[
-    \left\{
-    \begin{aligned}
-        y_1, y_2, y_3 & \ge 0 \\
-        y_1 + y_3 & \ge 1~\text{(неравенство, т.к. $y$ только справа)} \\
-        y_2 + y_3 & \ge 6
-    \end{aligned}
-    \right.
-\]
+\begin{eqnsystem}
+    y_1, y_2, y_3 & \ge 0 \\
+    y_1 + y_3 & \ge 1~\text{(неравенство, т.к. $y$ только справа)} \\
+    y_2 + y_3 & \ge 6
+\end{eqnsystem}
 
 Чтобы оценка была как можно более точной,
 нужно минимизировать $200 y_1 + 300 y_2 + 400 y_3$.
 Снова получили задачу линейного программирования:
-\[
-    \left\{
-    \begin{aligned}
-        200 y_1 + 300 y_2 + 400 y_3 & \to \min \\
-        y_1 + y_3 & \ge 1 \\
-        y_2 + y_3 & \ge 6 \\
-        y_1, y_2, y_3 & \ge 0 \\
-    \end{aligned}
-    \right.
-\]
+\begin{eqnsystem}
+    200 y_1 + 300 y_2 + 400 y_3 & \to \min \\
+    y_1 + y_3 & \ge 1 \\
+    y_2 + y_3 & \ge 6 \\
+    y_1, y_2, y_3 & \ge 0 \\
+\end{eqnsystem}
 
 \paragraph{Общий случай}
 Всякое решение двойственной задачи
@@ -139,45 +119,33 @@ $y_1 \cdot x_1 + y_2 \cdot x_2 + y_3 \cdot (x_1 + x_2)$,
 значениями будет оптимальной.
 
 Если прямая задача:
-\[
-    \left\{
-    \begin{aligned}
-        & \sum_{i=1}^n c_i x_i \to \max \\
-        & \forall j \in \{1, \ldots, m\}.~\sum_{i=1}^n a_{ji} x_i \le b_j \\
-        & \forall i \in \{1, \ldots, n\}.~x_i \ge 0 \\
-    \end{aligned}
-    \right.
-\]
+\begin{eqnsystem}
+    & \sum_{i=1}^n c_i x_i \to \max \\
+    & \forall j \in \{1, \ldots, m\}.~\sum_{i=1}^n a_{ji} x_i \le b_j \\
+    & \forall i \in \{1, \ldots, n\}.~x_i \ge 0 \\
+\end{eqnsystem}
 
 То двойственная --- это оценка для прямой, и будет иметь вид:
-\[
-    \left\{
-    \begin{aligned}
-        & \sum_{j=1}^m b_i y_i \to \min \\
-        & \forall i \in \{1, \ldots, n\}.~\sum_{j=1}^m a_{ji} y_j \ge c_i \\
-        & \forall j \in \{1, \ldots, m\}.~y_j \ge 0 \\
-    \end{aligned}
-    \right.
-\]
+\begin{eqnsystem}
+    & \sum_{j=1}^m b_i y_i \to \min \\
+    & \forall i \in \{1, \ldots, n\}.~\sum_{j=1}^m a_{ji} y_j \ge c_i \\
+    & \forall j \in \{1, \ldots, m\}.~y_j \ge 0 \\
+\end{eqnsystem}
 
 Матричный вид:
 \begin{align*}
     &
-    \left\{
-        \begin{aligned}
-            C^T \cdot X & \to \max \\
-            A \cdot X & \le B \\
-            X & \ge 0 \\
-        \end{aligned}
-    \right.
+    \begin{system}
+        C^T \cdot X & \to \max \\
+        A \cdot X & \le B \\
+        X & \ge 0 \\
+    \end{system}
     &&
-    \left\{
-        \begin{aligned}
-            B^T \cdot Y & \to \min \\
-            A^T \cdot Y & \ge C \\
-            Y & \ge 0
-        \end{aligned}
-    \right.
+    \begin{system}
+        B^T \cdot Y & \to \min \\
+        A^T \cdot Y & \ge C \\
+        Y & \ge 0
+    \end{system}
 \end{align*}
 
 Из матричного вида очевидно,
